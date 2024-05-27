@@ -1,0 +1,15 @@
+@import "@fontsource-variable/onest/wght.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Onest Variable", sans-serif;
+  background-color: white;
+
+}
+
+:root{
+  background-color:  white;
+}
+

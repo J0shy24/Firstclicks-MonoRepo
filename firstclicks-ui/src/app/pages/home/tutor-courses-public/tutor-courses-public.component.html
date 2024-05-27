@@ -1,0 +1,12 @@
+@for (course of courses; track course.id) {
+<div class="relative">
+  <div
+    class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+  >
+    <app-course-card
+      [course]="course"
+      [linkPath]="'/courses'"
+    ></app-course-card>
+  </div>
+</div>
+}

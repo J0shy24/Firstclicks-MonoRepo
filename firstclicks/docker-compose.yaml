@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: firstclicks_demo
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+  mail-dev:
+     container_name: mail-dev-bsn
+     image: maildev/maildev
+     ports:
+       - 1080:1080
+       - 1025:1025
+
+# Names our volume
+volumes:
+  my-db:

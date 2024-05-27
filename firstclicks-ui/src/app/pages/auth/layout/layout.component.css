@@ -1,0 +1,11 @@
+@media (min-width: 1024px) {
+  .navbar-start {
+    padding-left: 60px;
+  }
+}
+
+@media (max-width: 1024px) {
+  #nav-button {
+    padding-right: 2rem;
+  }
+}

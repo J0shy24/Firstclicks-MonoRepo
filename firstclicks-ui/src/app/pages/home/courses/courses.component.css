@@ -1,0 +1,79 @@
+.presentation{
+    background: linear-gradient(135deg, #3a9fd9, #6569e2);
+    color: white;
+}
+
+.scroll-container {
+    height: 8vh;
+  }
+  
+  .carousel-primary,
+  .carousel-secondary {
+    left: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+  
+  .carousel-primary img {
+    margin-left: 20px;
+    border-radius: 14px;
+  }
+  
+  .carousel-primary {
+    display: flex;
+    justify-content: space-around;
+    animation: scroll-horizontal 20s linear infinite;
+  }
+  
+  .carousel-secondary {
+    animation: scroll-horizontal 20s linear infinite;
+    animation-delay: 10s;
+  }
+  
+  @keyframes scroll-horizontal {
+    0% {
+      left: 100%;
+    }
+  
+    100% {
+      left: -100%;
+    }
+  }
+  
+  .carousel-primary:hover,
+  .carousel-primary:hover~.carousel-secondary {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+  
+  .carousel-secondary:hover {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+  
+  
+  .scroll-container:hover>.carousel-primary:not(:hover) {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+
+  .bg-gradient {
+    background: linear-gradient(30deg, #6569e2, #3a9fd9);
+  }
+
+  .text-color{
+    color:#3a9fd9;
+    font-weight: bold;
+  }
+
+
+
+

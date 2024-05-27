@@ -1,0 +1,851 @@
+{
+  "openapi": "3.0.1",
+  "info": { "title": "OpenAPI definition", "version": "v0" },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/firstclicks",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/tutor/courses/{id}": {
+      "get": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/CoursePublicDTO" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CourseDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/CoursePublicDTO" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/student/courses/{studentCourseId}": {
+      "put": {
+        "tags": ["student-course-admin"],
+        "operationId": "review",
+        "parameters": [
+          {
+            "name": "studentCourseId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/StudentReviewDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/StudentCourseDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tutor/courses": {
+      "get": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "paginate",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Pageable" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/PageCoursePublicDTO" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CourseDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/CoursePublicDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/courses/enroll/{courseId}": {
+      "post": {
+        "tags": ["student-course-admin"],
+        "operationId": "enroll",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/StudentCourseDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/upload": {
+      "post": {
+        "tags": ["media-controller"],
+        "operationId": "upload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["file"],
+                "type": "object",
+                "properties": {
+                  "file": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/UploadMediaResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RequestUserClientDTO" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/auth/authenticate": {
+      "post": {
+        "tags": ["Authentication"],
+        "operationId": "authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticationRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tutor/profile": {
+      "get": {
+        "tags": ["tutor-profile-controller"],
+        "operationId": "getTutorProfile",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorPrivateProfileDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tutor/courses/list": {
+      "get": {
+        "tags": ["tutor-course-admin-controller"],
+        "operationId": "list",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CoursePublicDTO" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/profile": {
+      "get": {
+        "tags": ["student-controller-profile"],
+        "operationId": "getStudentProfile",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentPrivateProfileDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/courses/list": {
+      "get": {
+        "tags": ["student-course-admin"],
+        "operationId": "list_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/StudentCourseDTO" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/public/{filename}": {
+      "get": {
+        "tags": ["media-controller"],
+        "operationId": "getResource",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "type": "string", "format": "binary" } }
+            }
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "paginate_1",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Pageable" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/PageCoursePublicDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/{courseId}": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "getCourse",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/CoursePublicDTO" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/tutor/{tutorId}": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "getCoursesByTutorId",
+        "parameters": [
+          {
+            "name": "tutorId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CoursePublicDTO" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/tutor/rand/{tutorId}": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "getRandomTutors",
+        "parameters": [
+          {
+            "name": "tutorId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/TutorProfilePublic" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/search": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "getCoursesById",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CoursePublicDTO" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/courses/last": {
+      "get": {
+        "tags": ["course-controller"],
+        "operationId": "getLast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CoursePublicDTO" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/activate-account": {
+      "get": {
+        "tags": ["Authentication"],
+        "operationId": "confirm",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
+    "/student/courses/leave/{courseId}": {
+      "delete": {
+        "tags": ["student-course-admin"],
+        "operationId": "leave",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CourseDTO": {
+        "required": ["coverPath", "description", "name"],
+        "type": "object",
+        "properties": {
+          "name": { "maxLength": 250, "minLength": 3, "type": "string" },
+          "description": { "type": "string" },
+          "coverPath": { "type": "string" },
+          "techStack": { "type": "array", "items": { "type": "string" } },
+          "level": {
+            "type": "string",
+            "enum": ["ENTRY", "INTERMEDIATE", "ADVANCE"]
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "tutorId": { "$ref": "#/components/schemas/Tutor" },
+          "name": { "type": "string" },
+          "isActive": { "type": "boolean" },
+          "description": { "type": "string" },
+          "createdDate": { "type": "string", "format": "date-time" },
+          "updatedDate": { "type": "string", "format": "date-time" },
+          "coverPath": { "type": "string" },
+          "techStacks": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TechStack" }
+          },
+          "enrollments": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/StudentCourse" }
+          },
+          "level": {
+            "type": "string",
+            "enum": ["ENTRY", "INTERMEDIATE", "ADVANCE"]
+          }
+        }
+      },
+      "CoursePublicDTO": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "coverPath": { "type": "string" },
+          "techStack": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TechStack" }
+          },
+          "level": {
+            "type": "string",
+            "enum": ["ENTRY", "INTERMEDIATE", "ADVANCE"]
+          },
+          "tutor": { "$ref": "#/components/schemas/TutorProfilePublic" },
+          "createdDate": { "type": "string", "format": "date-time" },
+          "updatedDate": { "type": "string", "format": "date-time" },
+          "studentReview": { "type": "array", "items": { "type": "string" } },
+          "studentStars": { "type": "integer", "format": "int32" }
+        }
+      },
+      "GrantedAuthority": {
+        "type": "object",
+        "properties": { "authority": { "type": "string" } }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "lastSession": { "type": "string", "format": "date-time" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "gender": { "type": "string" },
+          "email": { "type": "string" },
+          "address": { "type": "string" },
+          "description": { "type": "string" },
+          "photoRoute": { "type": "string" },
+          "enrollments": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/StudentCourse" }
+          },
+          "fullName": { "type": "string" },
+          "name": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "accountLocked": { "type": "boolean" },
+          "authorities": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/GrantedAuthority" }
+          },
+          "credentialsNonExpired": { "type": "boolean" },
+          "accountNonExpired": { "type": "boolean" },
+          "accountNonLocked": { "type": "boolean" }
+        }
+      },
+      "StudentCourse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "course": { "$ref": "#/components/schemas/Course" },
+          "student": { "$ref": "#/components/schemas/Student" },
+          "studentActive": { "type": "boolean" },
+          "studentJoinDate": { "type": "string", "format": "date-time" },
+          "studentReview": { "type": "string" },
+          "studentStars": { "type": "integer", "format": "int32" }
+        }
+      },
+      "TechStack": {
+        "type": "object",
+        "properties": {
+          "techStack": { "type": "string" },
+          "course": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Course" }
+          }
+        }
+      },
+      "Tutor": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "lastSession": { "type": "string", "format": "date-time" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "gender": { "type": "string" },
+          "email": { "type": "string" },
+          "address": { "type": "string" },
+          "description": { "type": "string" },
+          "photoRoute": { "type": "string" },
+          "fullName": { "type": "string" },
+          "name": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "accountLocked": { "type": "boolean" },
+          "authorities": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/GrantedAuthority" }
+          },
+          "credentialsNonExpired": { "type": "boolean" },
+          "accountNonExpired": { "type": "boolean" },
+          "accountNonLocked": { "type": "boolean" }
+        }
+      },
+      "TutorProfilePublic": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "photoRoute": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "StudentReviewDTO": {
+        "type": "object",
+        "properties": {
+          "studentReview": { "type": "string" },
+          "studentStars": { "type": "integer", "format": "int32" }
+        }
+      },
+      "StudentCourseDTO": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "studentId": { "type": "integer", "format": "int32" },
+          "studentActive": { "type": "boolean" },
+          "studentReview": { "type": "string" },
+          "studentStars": { "type": "integer", "format": "int32" },
+          "studentJoinDate": { "type": "string", "format": "date-time" },
+          "courseEnrolled": { "$ref": "#/components/schemas/CoursePublicDTO" }
+        }
+      },
+      "UploadMediaResponse": {
+        "type": "object",
+        "properties": { "path": { "type": "string" } }
+      },
+      "RequestUserClientDTO": {
+        "required": [
+          "address",
+          "email",
+          "firstName",
+          "lastName",
+          "password",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "userName": { "type": "string" },
+          "password": {
+            "maxLength": 2147483647,
+            "minLength": 8,
+            "type": "string"
+          },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "roleId": { "type": "integer", "format": "int32" },
+          "gender": { "type": "string" },
+          "email": { "type": "string" },
+          "address": { "type": "string" },
+          "description": { "type": "string" },
+          "photoRoute": { "type": "string" }
+        }
+      },
+      "AuthenticationRequestDTO": {
+        "required": ["password", "userName"],
+        "type": "object",
+        "properties": {
+          "userName": { "type": "string" },
+          "password": {
+            "maxLength": 2147483647,
+            "minLength": 8,
+            "type": "string"
+          }
+        }
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "token": { "type": "string" },
+          "user": { "$ref": "#/components/schemas/UserProfileDTO" }
+        }
+      },
+      "UserProfileDTO": {
+        "type": "object",
+        "properties": {
+          "userName": { "type": "string" },
+          "role": { "type": "string" }
+        }
+      },
+      "TutorPrivateProfileDTO": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "photoRoute": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "address": { "type": "string" },
+          "description": { "type": "string" },
+          "email": { "type": "string" },
+          "gender": { "type": "string" },
+          "enabled": { "type": "boolean" }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": { "minimum": 0, "type": "integer", "format": "int32" },
+          "size": { "minimum": 1, "type": "integer", "format": "int32" },
+          "sort": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "PageCoursePublicDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": { "type": "integer", "format": "int64" },
+          "totalPages": { "type": "integer", "format": "int32" },
+          "size": { "type": "integer", "format": "int32" },
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CoursePublicDTO" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "sort": { "$ref": "#/components/schemas/SortObject" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" },
+          "numberOfElements": { "type": "integer", "format": "int32" },
+          "pageable": { "$ref": "#/components/schemas/PageableObject" },
+          "empty": { "type": "boolean" }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": { "type": "integer", "format": "int64" },
+          "sort": { "$ref": "#/components/schemas/SortObject" },
+          "pageSize": { "type": "integer", "format": "int32" },
+          "pageNumber": { "type": "integer", "format": "int32" },
+          "paged": { "type": "boolean" },
+          "unpaged": { "type": "boolean" }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": { "type": "boolean" },
+          "sorted": { "type": "boolean" },
+          "unsorted": { "type": "boolean" }
+        }
+      },
+      "StudentPrivateProfileDTO": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "photoRoute": { "type": "string" },
+          "dateOfBirth": { "type": "string", "format": "date" },
+          "address": { "type": "string" },
+          "description": { "type": "string" },
+          "email": { "type": "string" },
+          "gender": { "type": "string" },
+          "enabled": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,250 @@
+<h1>Formulario Alta de nuevo Curso</h1>
+<div>
+  <h1>@if(courseExists) { Editar } @else { Nuevo } Curso</h1>
+
+  @if(errors.length) {
+  <div class="mt-5 alert alert-danger">
+    <ul>
+      @for (error of errors; track error) {
+      <li>{{ error }}</li>
+      }
+    </ul>
+  </div>
+  }
+  <br />
+  @if (form) {
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Nombre Curso</span>
+      </div>
+      <input
+        type="text"
+        placeholder="Type here"
+        class="input input-bordered w-full max-w-xs"
+        name="name"
+        formControlName="name"
+      />
+    </label>
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Nivel</span>
+      </div>
+      <select
+        class="select select-bordered"
+        formControlName="level"
+        name="level"
+      >
+        <option disabled selected>Nivel del Curso</option>
+        <option>ENTRY</option>
+        <option>INTERMEDIATE</option>
+        <option>ADVANCE</option>
+      </select>
+    </label>
+
+    <div class="flex flex-row items-center">
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Tecnologías</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full max-w-xs"
+          name="techStack2"
+          #techStack
+        />
+      </label>
+      <button
+        type="button"
+        class="btn btn-outline mt-10"
+        (click)="addTechStack(techStack.value)"
+      >
+        Añadir
+      </button>
+      @for (item of techs; track $index) {
+      <input
+        type="text"
+        placeholder="{{ item }}"
+        class="input input-bordered w-full max-w-52"
+        #tech
+        disabled
+      />
+      <button type="button" (click)="deleteTechStack(tech.placeholder)">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-square-rounded-x"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M10 10l4 4m0 -4l-4 4" />
+          <path
+            d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"
+          />
+        </svg>
+      </button>
+      }
+    </div>
+
+    <label class="form-control">
+      <div class="label">
+        <span class="label-text">Descriopción del curso</span>
+      </div>
+      <textarea
+        placeholder="Bio"
+        class="textarea textarea-bordered textarea-xs w-full max-w-xs"
+        name="description"
+        formControlName="description"
+      ></textarea>
+    </label>
+    <label class="form-control">
+      <input
+        type="file"
+        accept=".png,.jpg,.jpeg"
+        class="file-input file-input-bordered w-full max-w-xs"
+        (change)="uploadFile($event, 'coverPath')"
+      />
+    </label>
+
+    <button class="btn btn-success">
+      @if (courseExists) {
+      {{ "Actualizar" }}
+      } @else {
+      {{ "Crear" }}
+      }
+    </button>
+  </form>
+  @if (courseExists) {
+  <button (click)="deleteCourse()" class="btn btn-outline">Eliminar</button>
+  } }
+
+  <!-- <form #form="ngForm" (ngSubmit)="create(form)">
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Nombre Curso</span>
+      </div>
+      <input
+        type="text"
+        placeholder="Type here"
+        class="input input-bordered w-full max-w-xs"
+        [(ngModel)]="createCourse.name"
+        name="name"
+        #name="ngModel"
+      />
+    </label>
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Nivel</span>
+      </div>
+      <select
+        class="select select-bordered"
+        [(ngModel)]="createCourse.level"
+        name="level"
+        #level="ngModel"
+      >
+        <option disabled selected>Nivel del Curso</option>
+        <option>ENTRY</option>
+        <option>INTERMEDIATE</option>
+        <option>ADVANCE</option>
+      </select>
+    </label>
+
+    <div class="flex flex-row">
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Tecnología 1</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full max-w-xs"
+          name="techStack1"
+          ngModel
+        />
+      </label>
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Tecnología 2</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full max-w-xs"
+          name="techStack2"
+          ngModel
+        />
+      </label>
+      <label class="form-control w-full max-w-xs">
+        <div class="label">
+          <span class="label-text">Tecnología 3</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered w-full max-w-xs"
+          name="techStack3"
+          ngModel
+        />
+      </label>
+    </div>
+
+    <label class="form-control">
+      <div class="label">
+        <span class="label-text">Descriopción del curso</span>
+      </div>
+      <textarea
+        placeholder="Bio"
+        class="textarea textarea-bordered textarea-xs w-full max-w-xs"
+        [(ngModel)]="createCourse.description"
+        name="description"
+        #description="ngModel"
+      ></textarea>
+    </label>
+    <button class="btn">Crear</button>
+  </form> -->
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="btm-nav">
+    <button routerLink="/tutor/courses">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+        />
+      </svg>
+    </button>
+    <button class="active">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

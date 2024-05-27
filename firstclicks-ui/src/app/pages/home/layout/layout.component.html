@@ -1,0 +1,81 @@
+<div class="navbar bg-white py-2">
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+      ></ul>
+    </div>
+    <a
+      href="./"
+      class="btn bg-white border-white hover:bg-white hover:border-white shadow-none rounded-xl text-xl text-black gap-0"
+      >FirstClicks
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-tabler icon-tabler-pointer"
+        width="25"
+        height="25"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="#2c3e50"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path
+          d="M7.904 17.563a1.2 1.2 0 0 0 2.228 .308l2.09 -3.093l4.907 4.907a1.067 1.067 0 0 0 1.509 0l1.047 -1.047a1.067 1.067 0 0 0 0 -1.509l-4.907 -4.907l3.113 -2.09a1.2 1.2 0 0 0 -.309 -2.228l-13.582 -3.904l3.904 13.563z"
+        />
+      </svg>
+    </a>
+  </div>
+  <div class="navbar-center hidden lg:flex text-black">
+    <ul class="menu menu-horizontal px-1 z-[1]">
+      <li><a routerLink="{{ courses }}">Busca a tu profesor</a></li>
+      @if (user?.role == "TUTOR") {
+      <li><a routerLink="/tutor/profile">Mi perfil (profesor)</a></li>
+      <!---->
+      } @if (user?.role == "STUDENT") {
+      <li><a>Mi perfil (alumno)</a></li>
+      }
+    </ul>
+  </div>
+  @if (user) {
+  <div id="nav-button" class="navbar-end pr-12">
+    <a class="btn">{{ user.userName }}</a>
+  </div>
+  <div id="nav-button" class="navbar-end pr-36">
+    <a (click)="logout()" class="btn">Cerrar sesión</a>
+  </div>
+  } @else {
+  <div id="nav-button" class="navbar-end pr-36 text-black">
+    <a href="#modal1" class="">Inicia Sesión </a>
+    <p class="px-3"></p>
+    <a
+      routerLink="{{ signup }}"
+      routerLinkActive="router-link-active"
+      class="btn signup border-none text-white rounded-full"
+    >
+      Regístrate
+    </a>
+  </div>
+  }
+</div>
+
+<router-outlet />

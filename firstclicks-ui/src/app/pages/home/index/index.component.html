@@ -1,0 +1,447 @@
+<!--
+  Heads up! 👋
+https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80
+  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
+-->
+<section id="background" class="relative bg-cover bg-center bg-no-repeat">
+  <div
+    class="absolute inset-0 bg-white/75 sm:bg-transparent sm:from-white/95 sm:to-white/25 ltr:sm:bg-gradient-to-r rtl:sm:bg-gradient-to-l"
+  ></div>
+
+  <div
+    class="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-9 lg:ml-10"
+  >
+    <div
+      class="max-w-xl xl:mx-40 text-center ltr:sm:text-left rtl:sm:text-right"
+    >
+      <h1 class="text-3xl font-extrabold text-black sm:text-5xl">
+        Empieza
+        <strong class="block font-extrabold text-primary">
+          <span class="text-black"> tu ruta de </span>
+          <span class="gradient-text">programador</span>
+        </strong>
+      </h1>
+
+      <div class="mt-8 flex flex-wrap gap-4 text-center justify-center">
+        <input
+          type="text"
+          placeholder="Lenguaje de programación"
+          class="input bg-white shadow border-black rounded-lg w-full max-w-xs text-black"
+        />
+
+        <a
+          href="#"
+          class="block rounded bg-white px-8 py-3 text-sm font-medium text-rose-600 shadow hover:text-rose-700 focus:outline-none focus:ring active:text-rose-500 sm:w-auto"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-search"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#2c3e50"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Prueba de model para que se deslize el login-->
+
+<div id="modal1" class="modalmask" [hidden]="isClosed">
+  <div class="modalbox movedown">
+    <a href="#close" title="Close" class="close">X</a>
+    <div class="text-black login">
+      <div
+        class="flex flex-col lg:flex-row lg:w-6/12 rounded-xl mx-auto shadow-lg overflow-hidden"
+      >
+        <div
+          class="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center"
+          style="
+            background-image: url('https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+          "
+        ></div>
+        <div class="w-full lg:w-1/2 py-16 px-12 bg-white">
+          <h2 class="text-3xl mb-4">Iniciar Sesión</h2>
+          <p class="mb-4">Inicia sesión para acceder a tu cuenta.</p>
+          <form #form="ngForm" (ngSubmit)="login(form)">
+            @if (errors.length) {
+            <div class="text-error">
+              <ul>
+                @for (error of errors; track error) {
+                <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+            }
+            <div
+              class="text-error"
+              [hidden]="userName.valid || userName.pristine"
+            >
+              @if( userName.errors?.['required'] ) { El Usuraio obligatorio }
+              @else if (userName.errors?.['email']) { Ingrese un Usuario válido
+              }
+            </div>
+            <div class="mt-5">
+              Usuario
+              <input
+                type="text"
+                placeholder="Email"
+                class="border border-gray-400 py-1 px-2 w-full"
+                [(ngModel)]="authRequest.userName"
+                #userName="ngModel"
+                required=""
+                name="userName"
+              />
+            </div>
+            <div
+              class="text-error"
+              [hidden]="password.valid || password.pristine"
+            >
+              @if(password.errors?.['required']) { La contraseña es obligatoria
+              }
+            </div>
+            <div class="mt-5">
+              Contraseña
+              <input
+                type="password"
+                placeholder="Contraseña"
+                class="border border-gray-400 py-1 px-2 w-full"
+                [(ngModel)]="authRequest.password"
+                required=""
+                #password="ngModel"
+                name="password"
+              />
+            </div>
+
+            <div class="mt-5 text-black">
+              <span>
+                Aún no tiene cuenta.
+                <a
+                  [routerLink]="['/auth/signup']"
+                  routerLinkActive="router-link-active"
+                  class="font-semibold check-terms"
+                >
+                  Regístrese aquí.</a
+                >
+              </span>
+            </div>
+
+            <div class="mt-5">
+              <button
+                class="w-full py-3 text-center gradient-text font-bold bg-black text-white"
+              >
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sección que contiene sección de profesores mejor valorados, about us y get to know the team-->
+
+<section class="container mx-auto px-36">
+  <section class="bg-white lg:mx-20">
+    <div class="mx-auto max-w-screen-2xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+      <div class="md:flex md:items-end md:justify-between">
+        <div class="max-w-xl">
+          <h2
+            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+          >
+            Tutores mejor valorados
+          </h2>
+
+          <p class="mt-6 max-w-lg leading-relaxed text-gray-700">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
+            praesentium natus sapiente commodi. Aliquid sunt tempore iste
+            repellendus explicabo dignissimos placeat, autem harum dolore
+            reprehenderit quis! Quo totam dignissimos earum.
+          </p>
+        </div>
+
+        <a
+          routerLink="{{ courses }}"
+          href="#"
+          class="mt-6 inline-flex shrink-0 items-center gap-2 rounded-full border border-primary px-5 py-3 text-primary transition hover:bg-primary hover:text-white md:mt-0"
+        >
+          <span class="font-medium"> Explorar </span>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4 rtl:rotate-180"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <div>
+        <div class="md:flex grid mx-auto gap-3 mt-8 group">
+          <!-- Primer mejor valorado -->
+          <div
+            class="bg-black group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 text-center p-8 rounded-xl cursor-pointer"
+          >
+            <img
+              class="rounded-full mx-auto my-3"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width="150px"
+            />
+            <h4 class="uppercase text-xl font-bold">Jose García</h4>
+            <p class="text-sm leading-7 my-3 font-light opacity-70">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              fugiat reiciendis eligendi provident quis.
+            </p>
+            <button
+              class="bg-primary py-2.5 px-8 rounded-full hover:bg-violet-600 text-white"
+            >
+              Contactar
+            </button>
+          </div>
+          <!-- Segundo mejor valorado -->
+          <div
+            class="bg-black group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 text-center p-8 rounded-xl cursor-pointer"
+          >
+            <img
+              class="rounded-full mx-auto my-3"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width="150px"
+            />
+            <h4 class="uppercase text-xl font-bold">Jose García</h4>
+            <p class="text-sm leading-7 my-3 font-light opacity-70">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              fugiat reiciendis eligendi provident quis.
+            </p>
+            <button
+              class="bg-primary py-2.5 px-8 rounded-full hover:bg-violet-600 text-white"
+            >
+              Contactar
+            </button>
+          </div>
+          <!-- Tercer mejor valorado -->
+          <div
+            class="bg-black group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 text-center p-8 rounded-xl cursor-pointer"
+          >
+            <img
+              class="rounded-full mx-auto my-3"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width="150px"
+            />
+            <h4 class="uppercase text-xl font-bold">Jose García</h4>
+            <p class="text-sm leading-7 my-3 font-light opacity-70">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              fugiat reiciendis eligendi provident quis.
+            </p>
+            <button
+              class="bg-primary py-2.5 px-8 rounded-full hover:bg-violet-600 text-white"
+            >
+              Contactar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <section class="bg-white">
+        <div
+          class="mx-auto max-w-screen-2xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+        >
+          <div class="md:flex md:items-center md:justify-between">
+            <div class="bg-black">
+              <img
+                class=""
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                width="450px"
+              />
+            </div>
+            <div class="max-w-xl text-end flex flex-col ml-3">
+              <div class="m-0">
+                <h2
+                  class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+                >
+                  Sobre nosotros
+                </h2>
+                <p class="mt-6 max-w-lg text-left text-gray-700">
+                  <b>Sobre nosotros</b> En el corazón de nuestro compromiso está
+                  la enseñanza de lenguajes de programación a jóvenes y niños,
+                  ya sea en sesiones presenciales o en línea. Creemos en la
+                  importancia de proporcionar experiencias educativas
+                  innovadoras y accesibles que inspiren la creatividad y el
+                  pensamiento crítico en el mundo de la tecnología. Con un
+                  equipo dedicado de educadores y expertos en tecnología, nos
+                  esforzamos por ofrecer programas de aprendizaje flexibles y
+                  divertidos que preparen a los estudiantes para el futuro
+                  digital.
+                </p>
+              </div>
+              <div class="bg-slate-500 max-h mt-10">
+                <p>Contacta con nosotros</p>
+              </div>
+              <div class="bg-slate-500 max-h">
+                <p></p>
+                <p>93159483</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="bg-white">
+        <div class="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8 lg:py-6">
+          <div class="md:flex md:items-end md:justify-center">
+            <div class="max-w-xl text-center">
+              <h2
+                class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+              >
+                Conoce al equipo
+              </h2>
+              <div class="flex justify-between mt-11 gap-2">
+                <div class="grid">
+                  <img
+                    class="rounded-full mx-auto my-3"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    width="150px"
+                  />
+                </div>
+
+                <div class="img-custom">
+                  <img
+                    class="rounded-full mx-auto my-3"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    width="150px"
+                  />
+                </div>
+
+                <div class="img-custom">
+                  <img
+                    class="rounded-full mx-auto my-3"
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    width="150px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <blockquote
+        class="flex h-full flex-col justify-between card bg-base-100 shadow-xl"
+      >
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Shoes"
+            height="928px"
+            width="548px"
+          />
+        </figure>
+        <div class="p-6">
+          <div class="mt-4">
+            <p class="text-2xl font-bold text-primary sm:text-3xl">
+              Michael Scott
+            </p>
+
+            <p class="mt-4 leading-relaxed text-gray-700">
+              Desarrollador Fullstack Lemoncoder, Front End (React), Backend
+              (nodejs), Devops (Github Actions, Docker) y testing. Amante de las
+              nuevas tecnologías y siempre en estado de renovación continua.
+            </p>
+          </div>
+        </div>
+
+        <footer class="mt-4 text-sm font-medium text-gray-700 sm:mt-6 p-6">
+          <div class="card-actions justify-end">
+            <div class="badge badge-outline">Fashion</div>
+            <div class="badge badge-outline">Products</div>
+          </div>
+        </footer>
+      </blockquote>
+      <blockquote
+        class="flex h-full flex-col justify-between card bg-base-100 shadow-xl"
+      >
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Shoes"
+            height="928px"
+            width="548px"
+          />
+        </figure>
+        <div class="p-6">
+          <div class="mt-4">
+            <p class="text-2xl font-bold text-primary sm:text-3xl">
+              Michael Scott
+            </p>
+
+            <p class="mt-4 leading-relaxed text-gray-700">
+              Desarrollador Fullstack Lemoncoder, Front End (React), Backend
+              (nodejs), Devops (Github Actions, Docker) y testing. Amante de las
+              nuevas tecnologías y siempre en estado de renovación continua.
+            </p>
+          </div>
+        </div>
+
+        <footer class="mt-4 text-sm font-medium text-gray-700 sm:mt-6 p-6">
+          <div class="card-actions justify-end">
+            <div class="badge badge-outline">NodeJs</div>
+            <div class="badge badge-outline">Angular</div>
+          </div>
+        </footer>
+      </blockquote>
+      <blockquote
+        class="flex h-full flex-col justify-between card bg-base-100 shadow-xl"
+      >
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Shoes"
+            height="928px"
+            width="548px"
+          />
+        </figure>
+        <div class="p-6">
+          <div class="mt-4">
+            <p class="text-2xl font-bold text-primary sm:text-3xl">
+              Michael Scott
+            </p>
+
+            <p class="mt-4 leading-relaxed text-gray-700">
+              Desarrollador Fullstack Lemoncoder, Front End (React), Backend
+              (nodejs), Devops (Github Actions, Docker) y testing. Amante de las
+              nuevas tecnologías y siempre en estado de renovación continua.
+            </p>
+          </div>
+        </div>
+
+        <footer class="mt-4 text-sm font-medium text-gray-700 sm:mt-6 p-6">
+          <div class="card-actions justify-end">
+            <div class="badge badge-outline">Fashion</div>
+            <div class="badge badge-outline">Products</div>
+          </div>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section> -->
+    </div>
+  </section>
+</section>
