@@ -14,9 +14,7 @@ import lombok.EqualsAndHashCode;
 @Table(name="students")
 public class Student extends Client{
 	private static final long serialVersionUID = 1798476854278608136L;
-	
-	private int phoneNumber;
-	
+
 	@OneToMany(mappedBy = "student")
 	Set<StudentCourse> enrollments;
 }
