@@ -25,6 +25,7 @@ export default class ProfileComponent {
   tutorProfile: TutorPrivateProfileDto = {};
   courses: Course[] = [];
   responsiveOptions: any[] = [];
+  profilePhoto = this.tutorProfile.photoRoute;
   hola = 3;
 
   ngOnInit() {
