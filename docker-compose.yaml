@@ -1,0 +1,39 @@
+
+services:
+  postgres:
+    container_name: postgres-firstclicks
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: firstclicks-db
+    volumes:
+      - ./postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+  mail-dev:
+     container_name: mail-dev-firstclicks
+     image: maildev/maildev
+     ports:
+       - 1080:1080
+       - 1025:1025
+  firstclicks-api:
+      container_name: firstclicks-api
+      image: j0shy24/firstclicks
+      ports:
+        - 8088:8088
+      networks:
+        - spring-demo
+      depends_on:
+        - postgres
+networks:
+  spring-demo:
+    driver: bridge
+
+# Names our volume
+volumes:
+  my-db:
