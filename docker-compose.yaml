@@ -30,6 +30,15 @@ services:
         - spring-demo
       depends_on:
         - postgres
+  firstclicks-ui:
+    container_name: firstclicks-ui
+    image: j0shy24/firstclicks-ui
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - firstclicks-api
 networks:
   spring-demo:
     driver: bridge

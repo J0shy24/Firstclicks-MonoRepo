@@ -21,9 +21,11 @@
     "@fontsource-variable/onest": "^5.0.4",
     "@midudev/tailwind-animations": "^0.0.7",
     "angular-code-input": "^2.0.0",
+    "cors": "^2.8.5",
     "ngx-infinite-scroll": "^17.0.0",
-    "primeng": "^17.17.0",
+    "primeng": "^17.18.0",
     "rxjs": "~7.8.0",
+    "tippy.js": "^6.3.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

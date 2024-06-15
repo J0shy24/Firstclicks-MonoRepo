@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { enroll } from '../fn/student-course-admin/enroll';
 import { Enroll$Params } from '../fn/student-course-admin/enroll';
+import { getStudentCourseById } from '../fn/student-course-admin/get-student-course-by-id';
+import { GetStudentCourseById$Params } from '../fn/student-course-admin/get-student-course-by-id';
 import { leave } from '../fn/student-course-admin/leave';
 import { Leave$Params } from '../fn/student-course-admin/leave';
 import { list1 } from '../fn/student-course-admin/list-1';
@@ -23,6 +25,31 @@ import { StudentCourseDto } from '../models/student-course-dto';
 export class StudentCourseAdminService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `getStudentCourseById()` */
+  static readonly GetStudentCourseByIdPath = '/student/courses/{studentCourseId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getStudentCourseById()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStudentCourseById$Response(params: GetStudentCourseById$Params, context?: HttpContext): Observable<StrictHttpResponse<StudentCourseDto>> {
+    return getStudentCourseById(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getStudentCourseById$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStudentCourseById(params: GetStudentCourseById$Params, context?: HttpContext): Observable<StudentCourseDto> {
+    return this.getStudentCourseById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<StudentCourseDto>): StudentCourseDto => r.body)
+    );
   }
 
   /** Path part for operation `review()` */

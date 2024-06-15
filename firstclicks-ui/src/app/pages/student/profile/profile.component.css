@@ -1,0 +1,17 @@
+.border-color {
+  border-color: #3a9fd9;
+}
+
+.bg-info-btn {
+  background-color: #6569e2;
+}
+.bg-info {
+  background-color: #3a9fd9;
+}
+.bg-info-hover:hover {
+  background-color: #3a9fd9; /* Color para el estado hover */
+}
+
+.text-skills {
+  color: #6569e2;
+}

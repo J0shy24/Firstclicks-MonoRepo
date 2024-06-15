@@ -15,11 +15,12 @@ import { Get$Params } from '../../../../services/fn/tutor-course-admin-controlle
 import { CourseService } from '../../../services/course.service';
 import { Observable, from } from 'rxjs';
 import { Delete$Params } from '../../../../services/fn/tutor-course-admin-controller/delete';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-form',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, ApiImgPipe],
+  imports: [RouterModule, ReactiveFormsModule, ApiImgPipe, CommonModule],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.css',
 })
@@ -39,14 +40,16 @@ export default class CourseFormComponent implements OnInit {
   techs: Array<string> = new Array<string>();
 
   createCourse: CourseDto = {
-    coverPath: 'java.jpg',
+    coverPath: '',
     description: '',
-    level: 'ENTRY',
+    level: undefined,
     name: '',
     techStack: this.techs,
   };
 
   courseId = this.route.snapshot.paramMap.get('id');
+  imageUrl: string | ArrayBuffer | null = null;
+
   ngOnInit(): void {
     if (this.courseId) {
       this.courseService
@@ -61,8 +64,7 @@ export default class CourseFormComponent implements OnInit {
             name: [course.name, [Validators.required]],
             techStack: [course.techStack, [Validators.required]],
           });
-          console.log(this.form);
-          console.log(this.form.get('techStack')?.value);
+
           if (Array.isArray(this.form.get('techStack')?.value)) {
             this.form.get('techStack')?.value.forEach((element: any) => {
               let item: string = element.techStack;
@@ -72,7 +74,7 @@ export default class CourseFormComponent implements OnInit {
         });
     } else {
       this.form = this.fb.group({
-        coverPath: ['', [Validators.required]],
+        coverPath: ['Default_Course.jpg', [Validators.required]],
         description: ['', [Validators.required]],
         level: ['', [Validators.required]],
         name: ['', [Validators.required]],
@@ -81,6 +83,21 @@ export default class CourseFormComponent implements OnInit {
     }
   }
 
+  // uploadFile(event: any, control: string) {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const formData = new FormData();
+  //     formData.append('file', file);
+
+  //     this.mediaService.upload(formData).subscribe((response) => {
+  //       this.form!.controls[control].setValue(response.path);
+  //     });
+  //   }
+  // }
+
+  //Guarda la imagen y hace una vista previa
+
   uploadFile(event: any, control: string) {
     const file = event.target.files[0];
 
@@ -88,6 +105,14 @@ export default class CourseFormComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', file);
 
+      // Mostrar la vista previa de la imagen
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+
+      // Subir la imagen al servidor
       this.mediaService.upload(formData).subscribe((response) => {
         this.form!.controls[control].setValue(response.path);
       });
@@ -95,11 +120,14 @@ export default class CourseFormComponent implements OnInit {
   }
 
   contador = 0;
-  addTechStack(techInput: string) {
-    console.log(techInput);
+  maxTechStack = true;
+  addTechStack(techInput: HTMLInputElement) {
     if (this.contador < 3) {
-      this.techs.push(techInput);
+      this.techs.push(techInput.value);
+      techInput.value = '';
       this.contador++;
+    } else {
+      this.maxTechStack = false;
     }
   }
 
@@ -108,13 +136,22 @@ export default class CourseFormComponent implements OnInit {
     if (index > -1) {
       this.techs.splice(index, 1);
       this.contador--;
+      this.maxTechStack = true;
     }
   }
 
   save() {
     this.form?.get('techStack')?.setValue(this.techs);
-    console.log(this.form);
+
     if (this.form!.invalid) {
+      if (this.form?.get('techStack')?.status == 'INVALID') {
+        this.errors.push('Debe de introducir al menos una tecnología');
+      }
+
+      if (this.form?.get('level')?.status == 'INVALID') {
+        this.errors.push('Debe seleccionar un Nivel');
+      }
+
       this.form!.markAllAsTouched();
       return;
     }
@@ -162,7 +199,8 @@ export default class CourseFormComponent implements OnInit {
   //   if (form.value.techStack3 != '') {
   //     this.techs.push(form.value.techStack1);
   //   }
-  //   console.log(this.createCourse);
+  //   (this.createCourse);
+  //   (this.createCourse);
   //   this.courseTutorAdmin
   //     .create({
   //       body: this.createCourse,

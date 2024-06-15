@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { CoursePublicDto } from '../models/course-public-dto';
 export interface StudentCourseDto {
-  courseEnrolled?: CoursePublicDto;
+  courseEnrolled: CoursePublicDto;
   id?: number;
   studentActive?: boolean;
   studentId?: number;

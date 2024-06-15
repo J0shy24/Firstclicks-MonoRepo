@@ -14,6 +14,8 @@ import { Authenticate$Params } from '../fn/authentication/authenticate';
 import { AuthenticationResponse } from '../models/authentication-response';
 import { confirm } from '../fn/authentication/confirm';
 import { Confirm$Params } from '../fn/authentication/confirm';
+import { logout } from '../fn/authentication/logout';
+import { Logout$Params } from '../fn/authentication/logout';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
 
@@ -74,6 +76,31 @@ export class AuthenticationService extends BaseService {
   authenticate(params: Authenticate$Params, context?: HttpContext): Observable<AuthenticationResponse> {
     return this.authenticate$Response(params, context).pipe(
       map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `logout()` */
+  static readonly LogoutPath = '/auth/logout';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `logout()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  logout$Response(params?: Logout$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return logout(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `logout$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  logout(params?: Logout$Params, context?: HttpContext): Observable<void> {
+    return this.logout$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

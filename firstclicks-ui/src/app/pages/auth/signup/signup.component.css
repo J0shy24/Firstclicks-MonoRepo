@@ -33,5 +33,6 @@ input[type="radio"]:checked + label {
 input[type="radio"] {
   visibility: hidden;
 }
-// #3a9fd9 (studiante)
-// #6569e2 (tutor)
+.signup {
+  background-color: #6569e2;
+}

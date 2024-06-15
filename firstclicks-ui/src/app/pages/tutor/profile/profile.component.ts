@@ -1,10 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ProfileService } from '../../../services/profile.service';
-import { TutorPrivateProfileDto } from '../../../../services/models';
+import {
+  CoursePublicDto,
+  TutorPrivateProfileDto,
+} from '../../../../services/models';
 import { CommonModule } from '@angular/common';
 import { ApiImgPipe } from '../../../shared/api-img.pipe';
-import { RouterModule } from '@angular/router';
+
+import { CourseCardComponent } from '../../home/shared/course-card/course-card.component';
+import { Router, RouterModule } from '@angular/router';
+import { TutorService } from '../../../services/tutor.service';
+import CourseComponent from '../../home/course/course.component';
 
 interface Course {
   id: string;
@@ -16,47 +23,30 @@ interface Course {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CarouselModule, CommonModule, ApiImgPipe, RouterModule],
+
+  imports: [
+    CarouselModule,
+    CommonModule,
+    ApiImgPipe,
+    RouterModule,
+    CourseCardComponent,
+    RouterModule,
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
 export default class ProfileComponent {
   private tutorProfileService = inject(ProfileService);
+
+  private courseTutorService = inject(TutorService);
+  private router = inject(Router);
   tutorProfile: TutorPrivateProfileDto = {};
-  courses: Course[] = [];
+
+  courses: CoursePublicDto[] = [];
   responsiveOptions: any[] = [];
-  profilePhoto = this.tutorProfile.photoRoute;
-  hola = 3;
+  profileHidden = true;
 
   ngOnInit() {
-    this.courses = [
-      {
-        id: '1',
-        name: 'Curso de lógica e programación',
-        description: 'Lorem imoiwe wefwe werwer werwer werwer wer',
-        image: 'course1.jpg',
-      },
-      {
-        id: '2',
-        name: 'Curso de HTML',
-        description: 'Lorem imoiwe wefwe werwer werwer werwer wer',
-        image: 'course2.jpg',
-      },
-      {
-        id: '3',
-        name: 'Curso de CSS',
-        description: 'Lorem imoiwe wefwe werwer werwer werwer wer',
-        image: 'course3.jpg',
-      },
-      {
-        id: '4',
-        name: 'Curso de Cobol',
-        description: 'Lorem imoiwe wefwe werwer werwer werwer wer',
-        image: 'course3.jpg',
-      },
-      // Añade más cursos según sea necesario
-    ];
-
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -75,9 +65,17 @@ export default class ProfileComponent {
       },
     ];
 
+    this.courseTutorService.getListCourses().subscribe((courses) => {
+      this.courses = courses;
+    });
+
+    this.courseTutorService.getListCourses().subscribe((courses) => {
+      this.courses = courses;
+    });
+
     this.tutorProfileService.getProfileTutor().subscribe((tutor) => {
       this.tutorProfile = tutor;
-      console.log(this.tutorProfile);
+      this.tutorProfile;
     });
   }
 
@@ -90,5 +88,13 @@ export default class ProfileComponent {
     } else {
       return 'bg-error text-black hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm';
     }
+  }
+
+  mostrarPerfil() {
+    this.profileHidden = false;
+  }
+
+  ocultarPerfil() {
+    this.profileHidden = true;
   }
 }

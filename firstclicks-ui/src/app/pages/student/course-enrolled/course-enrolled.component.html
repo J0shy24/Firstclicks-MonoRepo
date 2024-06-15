@@ -1,1 +1,284 @@
-<p>course-enrolled works!</p>
+<script
+  src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+  defer
+></script>
+<!-- CARD COURSE -->
+<!-- <app-course-card [course]="courseEnrolled" [linkPath]="''"></app-course-card> -->
+<!-- RATING AND REVIEWS -->
+<!-- <form
+  action="POST"
+  [formGroup]="form"
+  (ngSubmit)="save()"
+  class="flex flex-col max-w-64 gap-2"
+>
+  <p-rating
+    [stars]="5"
+    [cancel]="false"
+    formControlName="studentStars"
+  ></p-rating>
+  <textarea
+    class="textarea textarea-bordered"
+    placeholder="Bio"
+    formControlName="studentReview"
+  ></textarea>
+  <button class="btn btn-active btn-primary">Enviar</button>
+</form>
+<div class="relative">
+  <div class="bg-white shadow-md rounded-xl">
+    <a class="flex flex-auto">
+      <div>
+        <img
+          [src]="courseEnrolled.tutor?.photoRoute || '' | apiImg"
+          alt="Teacher"
+          class="h-36 m-4 object-cover"
+        />
+      </div>
+      <div class="flex flex-auto flex-col justify-between">
+        <div class="m-4">
+          <span class="text-gray-400 mr-3 uppercase text-xs">TUTOR</span>
+          <p class="text-lg font-bold text-black truncate block capitalize">
+            {{ courseEnrolled.tutor?.firstName }}
+          </p>
+          <p class="text-sm text-black">
+            {{ courseEnrolled.tutor?.description }}
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+-->
+<!-- FOOTER -->
+<!-- <div class="btm-nav">
+  <button routerLink="/student/courses">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+      />
+    </svg>
+  </button>
+  <button class="active">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  </button>
+</div> -->
+
+<!-- CAMBIOS -->
+
+<div class="bg-gray-100 min-h-screen w-full">
+  <div class="container mx-auto mb-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2">
+      <!-- Left Side -->
+      <div class="w-full md:w-3/12 md:mx-2">
+        <!-- PROFILE CARD -->
+        <div class="bg-white p-3 border-t-4 border-color">
+          <div class="relative">
+            <div class="bg-white">
+              <a class="flex flex-auto">
+                <div>
+                  <img
+                    [src]="courseEnrolled.tutor?.photoRoute || '' | apiImg"
+                    alt="Teacher"
+                    class="h-36 m-4 object-cover"
+                  />
+                </div>
+                <div class="flex flex-auto flex-col justify-between">
+                  <div class="m-4">
+                    <span class="text-gray-400 mr-3 uppercase text-xs"
+                      >TUTOR</span
+                    >
+                    <p
+                      class="text-lg font-bold text-black truncate block capitalize"
+                    >
+                      {{ courseEnrolled.tutor?.firstName }}
+                    </p>
+                    <p class="text-sm text-black">
+                      {{ courseEnrolled.tutor?.description }}
+                    </p>
+                  </div>
+                </div>
+              </a>
+              <div
+                class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8"
+              >
+                <span class="">
+                  <svg
+                    class="h-5 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </span>
+                <span>Ponte en Contacto </span>
+                <a
+                  class="text-info"
+                  [href]="['tel:+' + this.courseEnrolled.tutor?.phoneNumber]"
+                >
+                  {{ this.courseEnrolled.tutor?.phoneNumber }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Side -->
+      <div class="w-full md:w-9/12 mx-2 h-64">
+        <!-- COURSE CARD -->
+        <div class="bg-white p-3 shadow-sm rounded-sm mb-4">
+          <app-course-card
+            [course]="courseEnrolled"
+            [linkPath]="''"
+          ></app-course-card>
+        </div>
+
+        <!-- RATINGS AND REVIEW -->
+        <div class="bg-white p-3 shadow-sm rounded-sm">
+          <!-- TITLE -->
+          <div
+            class="flex items-center space-x-3 font-semibold ml-3 mt-3 text-gray-900 text-xl leading-8"
+          >
+            <span class="text-black">
+              <svg
+                class="w-6 mb-1 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="2"
+                  d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z"
+                />
+              </svg>
+            </span>
+            <span>Déjanos tu opinión sobre este curso</span>
+          </div>
+          <!-- FORM -->
+          <form
+            action="POST"
+            [formGroup]="form"
+            (ngSubmit)="save()"
+            class="flex flex-col max-w-64 gap-2"
+          >
+            <!-- STARS -->
+            <h1>Valoración</h1>
+
+            <div class="rating">
+              <input
+                type="radio"
+                name="rating-2"
+                class="mask mask-star-2 bg-orange-400"
+                value="1"
+                formControlName="studentStars"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                class="mask mask-star-2 bg-orange-400"
+                checked
+                value="2"
+                formControlName="studentStars"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                class="mask mask-star-2 bg-orange-400"
+                value="3"
+                formControlName="studentStars"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                class="mask mask-star-2 bg-orange-400"
+                value="4"
+                formControlName="studentStars"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                class="mask mask-star-2 bg-orange-400"
+                value="5"
+                formControlName="studentStars"
+              />
+            </div>
+
+            <!-- TEXTAREA -->
+            <h1>Reseña</h1>
+            <textarea
+              class="textarea textarea-bordered"
+              placeholder="Cuéntanos cómo te ha ido o una breve descripción del curso para enriquecer las opiniones sobre este curso."
+              formControlName="studentReview"
+            ></textarea>
+            <button class="btn btn-active btn-primary">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--FOOTER-->
+<div class="btm-nav">
+  <button routerLink="/student/courses">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+      />
+    </svg>
+  </button>
+  <button class="active">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  </button>
+</div>

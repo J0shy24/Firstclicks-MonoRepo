@@ -10,6 +10,7 @@ import { MediaControllerService } from './services/media-controller.service';
 import { AuthenticationService } from './services/authentication.service';
 import { TutorProfileControllerService } from './services/tutor-profile-controller.service';
 import { StudentControllerProfileService } from './services/student-controller-profile.service';
+import { PublicControllerProfileService } from './services/public-controller-profile.service';
 import { CourseControllerService } from './services/course-controller.service';
 
 /**
@@ -26,6 +27,7 @@ import { CourseControllerService } from './services/course-controller.service';
     AuthenticationService,
     TutorProfileControllerService,
     StudentControllerProfileService,
+    PublicControllerProfileService,
     CourseControllerService,
     ApiConfiguration
   ],

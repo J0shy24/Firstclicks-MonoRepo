@@ -19,6 +19,5 @@ export default class CourseListComponent implements OnInit {
     this.tutorService.getListCourses().subscribe((tutorCourse) => {
       this.courses = tutorCourse;
     });
-    console.log(this.courses);
   }
 }

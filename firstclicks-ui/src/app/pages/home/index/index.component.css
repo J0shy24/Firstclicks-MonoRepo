@@ -1,5 +1,5 @@
 #background {
-  background-image: url("../../../../assets/cover-background.png.png");
+  background-image: url("../../../../assets/cover-background.png");
 }
 
 .element-to-move-front {
@@ -10,6 +10,17 @@
 .another-element-behind {
   z-index: 0; /* set lower z-index value */
   position: relative; /* position must be set for z-index to work */
+}
+.signup{
+  background-color: #6569e2;
+}
+.signupborder{
+  
+  border-color: #6569e2 ;
+  color: #6569e2;
+}
+.mail{
+  color: #6569e2;
 }
 
 
@@ -57,7 +68,7 @@
 
 /*Boton de cerrar*/
 .close {
-  background: #606061;
+  background: white;
   color: #FFFFFF;
   line-height: 25px;
   position: absolute;
@@ -71,10 +82,6 @@
 
 }
 
-.close:hover {
-  background: #FAAC58;
-  color:#222;
-}
 
 .gradient-text {
   background-image: linear-gradient(30deg, #3a9fd9,#6569e2);
@@ -89,6 +96,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 
 
 

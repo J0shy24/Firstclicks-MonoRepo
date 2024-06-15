@@ -12,5 +12,6 @@ export class AppComponent {
   explore = './courses';
   login = './auth/login';
   perfil ='/course';
+  title = 'Daisy-UI' 
   
 }

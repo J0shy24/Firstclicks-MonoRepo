@@ -14,6 +14,7 @@ export default class LayoutComponent {
   courses = '/courses';
   course = './course';
   signup = './auth/signup';
+  chats = './chats';
 
   private authService = inject(AuthService);
   private router = inject(Router);

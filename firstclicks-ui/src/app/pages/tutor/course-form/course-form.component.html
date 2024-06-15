@@ -1,129 +1,5 @@
-<h1>Formulario Alta de nuevo Curso</h1>
 <div>
-  <h1>@if(courseExists) { Editar } @else { Nuevo } Curso</h1>
-
-  @if(errors.length) {
-  <div class="mt-5 alert alert-danger">
-    <ul>
-      @for (error of errors; track error) {
-      <li>{{ error }}</li>
-      }
-    </ul>
-  </div>
-  }
-  <br />
-  @if (form) {
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <label class="form-control w-full max-w-xs">
-      <div class="label">
-        <span class="label-text">Nombre Curso</span>
-      </div>
-      <input
-        type="text"
-        placeholder="Type here"
-        class="input input-bordered w-full max-w-xs"
-        name="name"
-        formControlName="name"
-      />
-    </label>
-    <label class="form-control w-full max-w-xs">
-      <div class="label">
-        <span class="label-text">Nivel</span>
-      </div>
-      <select
-        class="select select-bordered"
-        formControlName="level"
-        name="level"
-      >
-        <option disabled selected>Nivel del Curso</option>
-        <option>ENTRY</option>
-        <option>INTERMEDIATE</option>
-        <option>ADVANCE</option>
-      </select>
-    </label>
-
-    <div class="flex flex-row items-center">
-      <label class="form-control w-full max-w-xs">
-        <div class="label">
-          <span class="label-text">Tecnologías</span>
-        </div>
-        <input
-          type="text"
-          placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
-          name="techStack2"
-          #techStack
-        />
-      </label>
-      <button
-        type="button"
-        class="btn btn-outline mt-10"
-        (click)="addTechStack(techStack.value)"
-      >
-        Añadir
-      </button>
-      @for (item of techs; track $index) {
-      <input
-        type="text"
-        placeholder="{{ item }}"
-        class="input input-bordered w-full max-w-52"
-        #tech
-        disabled
-      />
-      <button type="button" (click)="deleteTechStack(tech.placeholder)">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-square-rounded-x"
-          width="44"
-          height="44"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="#2c3e50"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M10 10l4 4m0 -4l-4 4" />
-          <path
-            d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z"
-          />
-        </svg>
-      </button>
-      }
-    </div>
-
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Descriopción del curso</span>
-      </div>
-      <textarea
-        placeholder="Bio"
-        class="textarea textarea-bordered textarea-xs w-full max-w-xs"
-        name="description"
-        formControlName="description"
-      ></textarea>
-    </label>
-    <label class="form-control">
-      <input
-        type="file"
-        accept=".png,.jpg,.jpeg"
-        class="file-input file-input-bordered w-full max-w-xs"
-        (change)="uploadFile($event, 'coverPath')"
-      />
-    </label>
-
-    <button class="btn btn-success">
-      @if (courseExists) {
-      {{ "Actualizar" }}
-      } @else {
-      {{ "Crear" }}
-      }
-    </button>
-  </form>
-  @if (courseExists) {
-  <button (click)="deleteCourse()" class="btn btn-outline">Eliminar</button>
-  } }
+  <!-- Comentado -->
 
   <!-- <form #form="ngForm" (ngSubmit)="create(form)">
     <label class="form-control w-full max-w-xs">
@@ -209,6 +85,262 @@
     </label>
     <button class="btn">Crear</button>
   </form> -->
+  <!--Comentado -->
+  <!-- component -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.tailgrids.com/tailgrids-fallback.css"
+  />
+
+  <!-- ====== Contact Section Start -->
+  <section class="bg-white overflow-hidden relative z-10 my-3">
+    <div class="container">
+      <div class="flex flex-wrap lg:justify-between -mx-4">
+        <div class="w-full lg:w-1/2 xl:w-6/12 px-4">
+          <!-- Información del curso -->
+          <div class="night">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+          </div>
+          <div class="max-w-[570px] mt-10 ml-10">
+            <h2
+              class="mt-8 text-dark mb-6 font-bold text-[32px] sm:text-text-2xl lg:text-text-3xl xl:text-3xl"
+            >
+              Crea un <span class="gradient-text">curso</span>
+            </h2>
+            <p class="text-base text-body-color leading-relaxed mb-9">
+              En FirstClicks, creemos en el poder del aprendizaje compartido. Si
+              tienes habilidades y conocimientos que deseas transmitir, estás en
+              el lugar correcto. Crear un curso es una excelente manera de
+              conectar con estudiantes apasionados, construir tu reputación y,
+              por supuesto, ¡ayudar a otros a aprender algo nuevo!
+            </p>
+            <div *ngIf="imageUrl" class="mt-4">
+              <img [src]="imageUrl" alt="Image Preview" class="preview-image" />
+            </div>
+            @if (this.courseExists) {
+            <div class="mt-4">
+              <img
+                [src]="this.courseExists.coverPath || '' | apiImg"
+                alt="curso"
+                class="preview-image"
+              />
+            </div>
+            }
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 xl:w-5/12 lg:pr-10">
+          <div class="bg-white relative rounded-lg p-8 sm:p-8 shadow-xl">
+            <h1>@if(courseExists) { Editar o eliminar } @else { Crear } curso</h1>
+
+            @if(errors.length) {
+            <div class="mt-5 alert alert-danger text-error">
+              <ul>
+                @for (error of errors; track error) {
+                <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+            }
+            @if (courseExists) {
+              <button (click)="deleteCourse()" class="btn mt-2 btn-outline">
+                Eliminar
+              </button>
+              }
+            <br />
+            @if (form) {
+            <form [formGroup]="form" (ngSubmit)="save()">
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text">Nombre del curso</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Ejemplo: Curso de HTML"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="name"
+                  formControlName="name"
+                />
+                <div
+                  class="text-error"
+                  [hidden]="
+                    form.get('name')?.valid || form.get('name')?.pristine
+                  "
+                >
+                  @if(form.get('name')?.errors?.["required"]) { El Nombre para
+                  el curso es obligatorio }
+                </div>
+              </label>
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text">Nivel del curso</span>
+                </div>
+                <select
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  formControlName="level"
+                  name="level"
+                >
+                  <option disabled selected>Nivel del curso</option>
+                  <option>ENTRY</option>
+                  <option>INTERMEDIATE</option>
+                  <option>ADVANCE</option>
+                </select>
+              </label>
+
+              <div class="flex flex-row items-center">
+                <label class="form-control w-auto mr-2">
+                  <div class="label">
+                    <span class="label-text">Tecnologías</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="HTML..."
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="techStack2"
+                    #techStack
+                  />
+                </label>
+                <button
+                  type="button"
+                  class="mt-11 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  (click)="addTechStack(techStack)"
+                >
+                  Añadir
+                </button>
+
+                <!-- Se van poniendo los tags max 3 y se pueden eliminar -->
+                <!-- @for (item of techs; track $index) {
+                  <span
+                    class="bg-white text-black text-xs font-bold leading-sm uppercase px-3 py-1 rounded-full border inline-flex items-center"
+                  >
+                    <input
+                      type="text"
+                      placeholder="{{ item }}"
+                      class="w-full max-w-52 bg-white placeholder-black"
+                      #tech
+                      disabled
+                      
+                    />
+                    <button
+                      type="button"
+                      class="inline-flex items-center p-1 ms-2 text-xs text-black shadow-sm"
+                      (click)="deleteTechStack(item)"
+                      aria-label="Remove"
+                    >
+                      <svg
+                        class="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                      <span class="sr-only">Remove badge</span>
+                    </button>
+                  </span>
+                 } -->
+                <div class="flex flex-wrap">
+                  @for (item of techs; track $index) {
+                  <div class="mb-2 mr-2">
+                    <span class="inline-flex items-center">
+                      <span
+                        class="bg-white text-black text-xs font-bold leading-sm uppercase px-3 py-1 rounded-full border"
+                      >
+                        <span>{{ item }}</span>
+                        <button
+                          type="button"
+                          class="inline-flex items-center p-1 ms-2 text-xs text-black shadow-sm -mx-1"
+                          (click)="deleteTechStack(item)"
+                          aria-label="Remove"
+                        >
+                          <svg
+                            class="w-2 h-2"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 14"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                            />
+                          </svg>
+                          <span class="sr-only">Remove badge</span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  }
+                </div>
+              </div>
+              <div class="text-error" [hidden]="maxTechStack">
+                No se pueden añadir más de tres tecnologías
+              </div>
+
+              <label class="form-control w-full">
+                <div class="label">
+                  <span class="label-text">Descripción del curso</span>
+                </div>
+                <textarea
+                  placeholder="Bio"
+                  class="textarea textarea-bordered textarea-xs w-full max-w-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="description"
+                  formControlName="description"
+                ></textarea>
+                <div
+                  class="text-error"
+                  [hidden]="
+                    form.get('description')?.valid ||
+                    form.get('description')?.pristine
+                  "
+                >
+                  @if(form.get('description')?.errors?.["required"]) { La
+                  descripción para el curso es obligatorio }
+                </div>
+              </label>
+              <label class="form-control w-full pt-2">
+                <input
+                  type="file"
+                  accept=".png,.jpg,.jpeg"
+                  class="file-input file-input-bordered w-full max-w-xs"
+                  (change)="uploadFile($event, 'coverPath')"
+                />
+              </label>
+
+              <button
+                class="w-full mt-2 text-white createbtn rounded p-3 transition hover:bg-opacity-90"
+              >
+                @if (courseExists) {
+                {{ "Actualizar" }}
+                } @else {
+                {{ "Crear" }}
+                }
+              </button>
+            </form>
+            }
+            <div></div>
+
+            <div></div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
   <br />
   <br />
   <br />
@@ -232,17 +364,18 @@
     </button>
     <button class="active">
       <svg
+        class="w-5 h-5 text-gray-800 dark:text-white"
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
         fill="none"
         viewBox="0 0 24 24"
-        stroke="currentColor"
       >
         <path
+          stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2"
-          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          d="M5 12h14m-7 7V5"
         />
       </svg>
     </button>

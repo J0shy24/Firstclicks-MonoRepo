@@ -3,7 +3,7 @@
   "info": { "title": "OpenAPI definition", "version": "v0" },
   "servers": [
     {
-      "url": "http://localhost:8080/api/firstclicks",
+      "url": "http://localhost:8088/api/firstclicks",
       "description": "Generated server url"
     }
   ],
@@ -76,6 +76,28 @@
       }
     },
     "/student/courses/{studentCourseId}": {
+      "get": {
+        "tags": ["student-course-admin"],
+        "operationId": "getStudentCourseById",
+        "parameters": [
+          {
+            "name": "studentCourseId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/StudentCourseDTO" }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "tags": ["student-course-admin"],
         "operationId": "review",
@@ -309,6 +331,25 @@
         }
       }
     },
+    "/student/profile/idCourses": {
+      "get": {
+        "tags": ["student-controller-profile"],
+        "operationId": "IdsEnrolledCourses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "type": "integer", "format": "int32" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/student/courses/list": {
       "get": {
         "tags": ["student-course-admin"],
@@ -322,6 +363,30 @@
                   "type": "array",
                   "items": { "$ref": "#/components/schemas/StudentCourseDTO" }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/{tutorId}": {
+      "get": {
+        "tags": ["public-controller-profile"],
+        "operationId": "getPublicTutorProfile",
+        "parameters": [
+          {
+            "name": "tutorId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/TutorProfilePublic" }
               }
             }
           }
@@ -498,6 +563,13 @@
         }
       }
     },
+    "/auth/logout": {
+      "get": {
+        "tags": ["Authentication"],
+        "operationId": "logout",
+        "responses": { "200": { "description": "OK" } }
+      }
+    },
     "/auth/activate-account": {
       "get": {
         "tags": ["Authentication"],
@@ -612,6 +684,7 @@
           "gender": { "type": "string" },
           "email": { "type": "string" },
           "address": { "type": "string" },
+          "phoneNumber": { "type": "integer", "format": "int32" },
           "description": { "type": "string" },
           "photoRoute": { "type": "string" },
           "enrollments": {
@@ -668,6 +741,7 @@
           "gender": { "type": "string" },
           "email": { "type": "string" },
           "address": { "type": "string" },
+          "phoneNumber": { "type": "integer", "format": "int32" },
           "description": { "type": "string" },
           "photoRoute": { "type": "string" },
           "fullName": { "type": "string" },
@@ -737,6 +811,7 @@
           "lastName": { "type": "string" },
           "dateOfBirth": { "type": "string", "format": "date" },
           "roleId": { "type": "integer", "format": "int32" },
+          "phoneNumber": { "type": "integer", "format": "int32" },
           "gender": { "type": "string" },
           "email": { "type": "string" },
           "address": { "type": "string" },

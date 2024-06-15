@@ -1,13 +1,155 @@
-.bg{
-    
+.bg-info-btn {
+  background-color: #6569e2;
 }
-.border-color{
-    border-color: #3a9fd9;
+.bg-info {
+  background-color: #3a9fd9;
+}
+.bg-info-hover:hover {
+  background-color: #3a9fd9; /* Color para el estado hover */
 }
 
-.bg-info{
-    background-color:#3a9fd9;
+.text-skills {
+  color: #6569e2;
 }
- .text-skills{
-    color: #6569e2
- }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.border-color {
+  border-color: #3a9fd9;
+}
+
+.bg-info {
+  background-color: #3a9fd9;
+}
+.text-skills {
+  color: #6569e2;
+}
+
+#background {
+  background-image: url("../../../../assets/cover-background.png");
+}
+
+.element-to-move-front {
+  z-index: 1; /* set higher z-index value */
+  position: relative; /* position must be set for z-index to work */
+}
+
+.another-element-behind {
+  z-index: 0; /* set lower z-index value */
+  position: relative; /* position must be set for z-index to work */
+}
+
+/* Agregado del index modal login */
+.element-to-move-front {
+  z-index: 1; /* set higher z-index value */
+  position: relative; /* position must be set for z-index to work */
+}
+
+.another-element-behind {
+  z-index: 0; /* set lower z-index value */
+  position: relative; /* position must be set for z-index to work */
+}
+.signup {
+  background-color: #6569e2;
+}
+.signupborder {
+  border-color: #6569e2;
+  color: #6569e2;
+}
+.mail {
+  color: #6569e2;
+}
+
+/*Efecto*/
+.modalmask {
+  position: fixed;
+  font-family: Arial, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+.modalmask:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/*Formato de la ventana*/
+.modalbox {
+  position: relative;
+  background: transparent;
+  border-radius: 3px;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+}
+
+/*Movimientos*/
+.movedown {
+  margin: 0 auto;
+}
+
+.modalmask:target .movedown {
+  margin: 8% auto;
+}
+
+/*Boton de cerrar*/
+.close {
+  background: #606061;
+  color: #ffffff;
+  line-height: 25px;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  top: 1px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.close:hover {
+  background: #faac58;
+  color: #222;
+}
+
+.gradient-text {
+  background-image: linear-gradient(30deg, #3a9fd9, #6569e2);
+}
+
+.check-terms {
+  color: #909aea;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #6569e2,
+    #ff7e5f
+  ); /* Aquí puedes cambiar los colores del gradiente */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

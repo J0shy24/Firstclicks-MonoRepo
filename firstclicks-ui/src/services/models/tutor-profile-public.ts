@@ -6,4 +6,5 @@ export interface TutorProfilePublic {
   id?: number;
   lastName?: string;
   photoRoute?: string;
+  phoneNumber?: string;
 }

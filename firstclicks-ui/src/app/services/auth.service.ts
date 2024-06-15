@@ -10,7 +10,7 @@ import {
 import { routes } from '../app.routes';
 import { Router } from '@angular/router';
 
-const authKey = 'bookstoreweb0324_auth';
+const authKey = 'firstClicks_auth';
 
 @Injectable({
   providedIn: 'root',

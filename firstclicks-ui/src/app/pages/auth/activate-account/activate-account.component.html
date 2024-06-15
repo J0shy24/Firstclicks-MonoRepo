@@ -1,19 +1,19 @@
-<div class="grid h-screen place-content-center bg-white px-4">
+<!-- <div class="grid h-screen place-content-center bg-white px-4">
   <div class="text-center">
     <div class="container" *ngIf="submitted; else codeForm">
-      <div class="activate-message" *ngIf="isOkay; else activationError">
-        <h2>Activación Valida</h2>
+      <div class="activate-message gap-2" *ngIf="isOkay; else activationError">
+        <h2>Activación valida</h2>
         <p>Tu cuenta ha sido activado correctamente.</p>
-        <button class="btn btn-primary" (click)="redireccionLogin()">
-          login
+        <button class="signup btn btn-sm text-white " (click)="redireccionLogin()">
+          Entrar
         </button>
       </div>
       <ng-template #activationError>
         <div class="activation-error">
           <h2>Activación Invalida</h2>
           <p>{{ message }}</p>
-          <button class="btn btn-primary" (click)="submitted = false">
-            intentar de nuevo
+          <button class="signup" (click)="submitted = false">
+            Intentar de nuevo
           </button>
         </div>
       </ng-template>
@@ -37,4 +37,131 @@
       </div>
     </ng-template>
   </div>
+</div> -->
+
+<!-- Container -->
+<!-- <div class="flex flex-col h-screen bg-gray-100">
+  <div class="grid place-items-center mx-2 my-20 sm:my-auto">
+    <div
+      class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 px-6 py-10 sm:px-10 sm:py-6 bg-white rounded-lg shadow-md lg:shadow-lg"
+    >
+      <div class="text-center">
+        <div class="container" *ngIf="submitted; else codeForm">
+          <div
+            class="activate-message gap-2"
+            *ngIf="isOkay; else activationError"
+          >
+            <h2 class="text-2xl">Activación valida</h2>
+            <p class="text-gray-500">
+              Tu cuenta ha sido activada correctamente. Inicie sesión.
+            </p>
+            <button
+              class="signup btn btn-sm mt-4 text-white"
+              (click)="redireccionLogin()"
+            >
+              Entrar
+            </button>
+          </div>
+          <ng-template #activationError>
+            <div class="activation-error">
+              <h2 class="text-2xl">Activación no válida</h2>
+              <p class="text-gray-500">{{ message }}</p>
+              <button
+                class="signup btn btn-sm mt-4 text-white"
+                (click)="submitted = false"
+              >
+                Intentar de nuevo
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <ng-template #codeForm>
+        
+        <div class="container">
+  <div class="text-center" style="width: 400px">
+    <div class="relative flex flex-col items-center">
+      <div class="tooltip absolute bg-blue-100 rounded-lg p-4 text-sm text-blue-700 shadow-lg mb-4">
+        Se ha enviado el <span class="font-medium">código de activación</span> a su correo electrónico.
+      </div>
+      <div class="info-icon flex items-center mb-4">
+        <svg
+          class="w-5 h-5 text-blue-700"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </div>
+      <p class="text-2xl tracking-tight mb-4">
+        Introduce el código de activación
+      </p>
+      <code-input
+        [isCodeHidden]="false"
+        [codeLength]="6"
+        [code]="'number'"
+        (codeCompleted)="onCodeCompleted($event)"
+      ></code-input>
+    </div>
+  </div>
 </div>
+
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- Container -->
+<div class="flex flex-col min-h-screen bg-gray-100">
+  <div class="grid place-items-center mx-2 my-20 sm:my-auto">
+    <div class="w-full sm:w-10/12 md:w-8/12 lg:w-7/12 xl:w-6/12 max-w-screen-lg px-6 py-10 sm:px-10 sm:py-6 bg-white rounded-lg shadow-md lg:shadow-lg mx-auto">
+      <div class="text-center">
+        <div *ngIf="submitted; else codeForm">
+          <div class="activate-message gap-2" *ngIf="isOkay; else activationError">
+            <h2 class="text-2xl">Activación válida</h2>
+            <p class="text-gray-500">
+              Tu cuenta ha sido activada correctamente. Inicia sesión.
+            </p>
+            <button class="signup btn btn-sm mt-4 text-white" (click)="redireccionLogin()">
+              Entrar
+            </button>
+          </div>
+          <ng-template #activationError>
+            <div class="activation-error">
+              <h2 class="text-2xl">Activación no válida</h2>
+              <p class="text-gray-500">{{ message }}</p>
+              <button class="signup btn btn-sm mt-4 text-white" (click)="submitted = false">
+                Intentar de nuevo
+              </button>
+            </div>
+          </ng-template>
+        </div>
+        <ng-template #codeForm>
+          <div class="w-full md:max-w-md mx-auto">
+            <div class="text-center">
+              <div class="relative flex flex-col items-center">
+                <div class="info-icon flex items-center mb-4">
+                  <button id="myButton">
+                    <svg class="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-2xl tracking-tight mb-4">
+                  Introduce el código de activación
+                </p>
+                <!-- Adjust code-input component as necessary -->
+                <code-input [isCodeHidden]="false" [codeLength]="6" [code]="'number'" (codeCompleted)="onCodeCompleted($event)"></code-input>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+

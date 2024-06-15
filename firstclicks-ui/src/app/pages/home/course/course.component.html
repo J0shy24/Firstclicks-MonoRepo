@@ -1,77 +1,462 @@
+<script
+  src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+  defer
+></script>
+
 <!-- COURSE -->
-<app-course-card [course]="course" [linkPath]="''"></app-course-card>
+<!-- <app-course-card [course]="course" [linkPath]="''"></app-course-card>
 <div class="card w-96 bg-base-100 shadow-xl">
-  @for (review of course.studentReview; track $index) {
+  @for (review of course.studentReview; track $index) { @if (review != null) {
   <div class="card-body">
     <p>"{{ review }}"</p>
   </div>
-  }
-</div>
-<!-- TUTOR -->
-<div class="relative">
-  <div
-    class="bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl"
+  } }
+</div> -->
+<!-- SUTDENT ENROLLMENT BUTTON -->
+<!-- <div>
+@if (user?.role == "STUDENT") {
+<button class="btn" (click)="studentEnroll(course.id || 0)">
+  Apuntarse
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
-    <a
-      [routerLink]="['/courses/tutor/', course.tutor?.id]"
-      class="flex flex-auto"
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+    />
+  </svg>
+</button>
+<div *ngIf="showSuccess" role="alert" class="alert alert-success z-20">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="stroke-current shrink-0 h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  <span>Te has apuntado a este curso correctamente</span>
+  <button class="btn btn-sm" (click)="closeAlert()">Cerrar</button>
+  <button class="btn btn-sm btn-primary" [routerLink]="['/student/courses']">
+    Ir a mis cursos
+  </button>
+</div>
+<div *ngIf="showError" role="alert" class="alert alert-error z-20">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="stroke-current shrink-0 h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  <span>Ya estabas apuntado a este curso</span>
+  <button class="btn btn-sm" (click)="closeAlert()">Cerrar</button>
+  <button class="btn btn-sm btn-primary" [routerLink]="['/student/courses']">
+    Ir a mis cursos
+  </button>
+</div>
+} @else if (user?.role != "TUTOR") {
+<a [href]="['courses/' + course.id + '#modal2']">
+  <button class="btn">
+    Apuntarse
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
     >
-      <div>
-        <img
-          [src]="course.tutor?.photoRoute || '' | apiImg"
-          alt="Teacher"
-          class="h-36 m-4 object-cover rounded-full"
-        />
-      </div>
-      <div class="flex flex-auto flex-col justify-between">
-        <div class="m-4">
-          <span class="text-gray-400 mr-3 uppercase text-xs">TUTOR</span>
-          <p class="text-lg font-bold text-black truncate block capitalize">
-            {{ course.tutor?.firstName }}
-          </p>
-          <p class="text-sm text-black">
-            {{ course.tutor?.description }}
-          </p>
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+      />
+    </svg>
+  </button>
+</a>
+
+}
+</div> -->
+<!-- MODAL LOGIN -->
+<div id="modal2" class="modalmask" [hidden]="isClosed">
+  <div class="modalbox movedown">
+    <a [href]="['courses/' + course.id + '#close']" title="Close" class="close"
+      >X</a
+    >
+    <div class="text-black login">
+      <div
+        class="flex flex-col lg:flex-row lg:w-6/12 rounded-xl mx-auto shadow-lg overflow-hidden"
+      >
+        <div
+          class="w-full lg:w-1/2 flex flex-col items-center signup justify-center p-12 bg-no-repeat bg-cover bg-center"
+          style="background-image: url('assets/logo.png'); background-size: 50%"
+        ></div>
+        <div class="w-full lg:w-1/2 py-16 px-12 bg-white">
+          <h2 class="text-3xl mb-4">Iniciar Sesión</h2>
+          <p class="mb-4">Inicia sesión para acceder a tu cuenta.</p>
+          <form #form="ngForm" (ngSubmit)="login(form)">
+            @if (errors.length) {
+            <div class="text-error">
+              <ul>
+                @for (error of errors; track error) {
+                <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+            }
+            <div
+              class="text-error"
+              [hidden]="userName.valid || userName.pristine"
+            >
+              @if( userName.errors?.['required'] ) { El Usuraio obligatorio }
+              @else if (userName.errors?.['email']) { Ingrese un Usuario válido
+              }
+            </div>
+            <div class="mt-5">
+              Usuario
+              <input
+                type="text"
+                placeholder="Usuario"
+                class="border border-gray-400 py-1 px-2 w-full"
+                [(ngModel)]="authRequest.userName"
+                #userName="ngModel"
+                required=""
+                name="userName"
+              />
+            </div>
+            <div
+              class="text-error"
+              [hidden]="password.valid || password.pristine"
+            >
+              @if(password.errors?.['required']) { La contraseña es obligatoria
+              }
+            </div>
+            <div class="mt-5">
+              Contraseña
+              <input
+                type="password"
+                placeholder="Contraseña"
+                class="border border-gray-400 py-1 px-2 w-full"
+                [(ngModel)]="authRequest.password"
+                required=""
+                #password="ngModel"
+                name="password"
+              />
+            </div>
+
+            <div class="mt-5 text-black">
+              <span>
+                Aún no tiene cuenta.
+                <a
+                  [routerLink]="['/auth/signup']"
+                  routerLinkActive="router-link-active"
+                  class="font-semibold check-terms"
+                >
+                  Regístrese aquí.</a
+                >
+              </span>
+            </div>
+
+            <div class="mt-5">
+              <button
+                class="w-full py-3 text-center font-bold signup text-white"
+              >
+                Enviar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-    </a>
+    </div>
   </div>
 </div>
-<!--OTHER PROFILES-->
-<div class="bg-white p-3 hover:shadow">
-  <div
-    class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8"
-  >
-    <span class="text-green-500">
-      <svg
-        class="h-5 fill-current"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-        />
-      </svg>
-    </span>
-    <span>Otros perfiles</span>
-  </div>
-  <div class="grid grid-cols-3">
-    @for (tutor of this.randomTutor; track tutor.id) {
-    <div class="text-center my-2">
-      <img
-        class="h-16 w-16 rounded-full mx-auto"
-        [src]="tutor.photoRoute || '' | apiImg"
-        alt=""
-      />
-      <a [routerLink]="['/courses/tutor/', tutor.id]" class="text-main-color">{{
-        tutor.firstName
-      }}</a>
+
+<div class="bg-gray-100 min-h-screen w-full">
+  <div class="container mx-auto mb-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2">
+      <!-- Left Side -->
+      <div class="w-full md:w-3/12 md:mx-2">
+        <!-- Profile Card / TUTOR -->
+        <div class="bg-white p-3 border-t-4 border-color">
+          <div class="relative">
+            <div class="bg-white shadow-md">
+              <a
+                [routerLink]="['/courses/tutor/', course.tutor?.id]"
+                class="flex flex-auto"
+              >
+                <div>
+                  <img
+                    [src]="course.tutor?.photoRoute || '' | apiImg"
+                    alt="Teacher"
+                    class="h-36 m-4 object-cover"
+                  />
+                </div>
+                <div class="flex flex-auto flex-col justify-between">
+                  <div class="m-4">
+                    <span class="text-gray-400 mr-3 uppercase text-xs"
+                      >TUTOR</span
+                    >
+                    <p
+                      class="text-lg font-bold text-black truncate block capitalize"
+                    >
+                      {{ course.tutor?.firstName }}
+                    </p>
+                    <p class="text-sm text-black">
+                      {{ course.tutor?.description }}
+                    </p>
+                    <p class="text-sm text-black">
+                      {{ course.tutor?.description }}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- End of profile card -->
+        <div class="my-4"></div>
+        <!-- Friends card -->
+        <div class="bg-white p-3 hover:shadow">
+          <div class="bg-white p-3 hover:shadow">
+            <div
+              class="flex items-center space-x-3 font-semibold text-gray-900 text-xl leading-8"
+            >
+              <span class="text-black">
+                <svg
+                  class="h-5 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </span>
+              <span>Otros perfiles</span>
+            </div>
+            <div class="grid grid-cols-3">
+              @for (tutor of this.randomTutor; track tutor.id) {
+              <div class="text-center my-2">
+                <img
+                  class="h-16 w-16 rounded-full mx-auto"
+                  [src]="tutor.photoRoute || '' | apiImg"
+                  alt=""
+                />
+                <a
+                  [routerLink]="['/courses/tutor/', tutor.id]"
+                  class="text-main-color"
+                  >{{ tutor.firstName }}</a
+                >
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- End of friends card -->
+      </div>
+      <!-- Right Side -->
+      <div class="w-full md:w-9/12 mx-2 h-64">
+        <!-- Profile tab -->
+        <!-- About Section -->
+        <div class="bg-white p-3 shadow-sm rounded-sm">
+          <app-course-card [course]="course" [linkPath]="''"></app-course-card>
+          <!-- SUTDENT ENROLLMENT BUTTON -->
+          <div>
+            @if (user?.role == "STUDENT") {
+            <button
+              class="btn text-white rounded-full bg-info-btn"
+              (click)="studentEnroll(course.id || 0)"
+            >
+              ¡Me apunto!
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+            </button>
+            <div
+              *ngIf="showSuccess"
+              role="alert"
+              class="alert alert-success rounded-full mt-2 z-20 text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Te has apuntado a este curso correctamente</span>
+
+              <button
+                class="btn btn-sm btn-primary"
+                [routerLink]="['/student/courses']"
+              >
+                Ir a mis cursos
+              </button>
+              <button class="" (click)="closeAlert()">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18 17.94 6M18 18 6.06 6"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              *ngIf="showError"
+              role="alert"
+              class="alert alert-error rounded-full mt-2 z-20 text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Ya estás apuntado en este curso</span>
+
+              <button
+                class="btn btn-sm bg-white rounded-full text-black"
+                [routerLink]="['/student/courses']"
+              >
+                Ir a mis cursos
+              </button>
+              <button class="" (click)="closeAlert()">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18 17.94 6M18 18 6.06 6"
+                  />
+                </svg>
+              </button>
+            </div>
+            } @else if (user?.role != "TUTOR") {
+            <a [href]="['courses/' + course.id + '#modal2']">
+              <button class="bg-info-btn">
+                Apuntarse
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </a>
+
+            }
+          </div>
+        </div>
+
+        <div class="my-4"></div>
+
+        <!-- ALL THE REVIEWS -->
+        <div class="bg-white p-3 shadow-sm rounded-sm">
+          <div
+            class="flex items-center space-x-3 font-semibold ml-3 mt-3 text-gray-900 text-xl leading-8"
+          >
+            <span class="text-black">
+              <svg
+                class="w-6 mb-1 text-gray-800 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="2"
+                  d="M11.083 5.104c.35-.8 1.485-.8 1.834 0l1.752 4.022a1 1 0 0 0 .84.597l4.463.342c.9.069 1.255 1.2.556 1.771l-3.33 2.723a1 1 0 0 0-.337 1.016l1.03 4.119c.214.858-.71 1.552-1.474 1.106l-3.913-2.281a1 1 0 0 0-1.008 0L7.583 20.8c-.764.446-1.688-.248-1.474-1.106l1.03-4.119A1 1 0 0 0 6.8 14.56l-3.33-2.723c-.698-.571-.342-1.702.557-1.771l4.462-.342a1 1 0 0 0 .84-.597l1.753-4.022Z"
+                />
+              </svg>
+            </span>
+            <span>Todas las opiniones sobre este curso</span>
+          </div>
+          <div class="card w-96 bg-base-100 shadow-xl">
+            @for (review of course.studentReview; track $index) { @if (review !=
+            null) {
+            <div class="card-body">
+              <p>"{{ review }}"</p>
+            </div>
+            } }
+          </div>
+        </div>
+
+        <!-- End of profile tab -->
+      </div>
     </div>
-    }
   </div>
 </div>
