@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'http://localhost:8088/api/firstclicks';
+  rootUrl: string = 'http://52.149.64.37:8088/api/firstclicks';
 }
 
 /**
