@@ -28,7 +28,7 @@ public class MediaController {
         return new UploadMediaResponse(path);
     }
 
-    @GetMapping("public/{filename}")
+    @GetMapping("/public/{filename}")
     public ResponseEntity<Resource> getResource(@PathVariable String filename) throws IOException {
         Resource resource = storageService.loadAsResource(filename);
         String contentType = Files.probeContentType(resource.getFile().toPath());

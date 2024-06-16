@@ -13,6 +13,6 @@ import com.project.firstclicks.entity.Tutor;
 
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor,Integer>{
-	@Query(value = "SELECT id FROM firstclicks_change.tutors WHERE id != :tutorId ORDER BY RAND() LIMIT 2 ;", nativeQuery = true)
+	@Query(value = "SELECT id FROM tutors WHERE id != :tutorId ORDER BY RANDOM() LIMIT 2 ;", nativeQuery = true)
 	List<Integer> getRandomTutorIds(Integer tutorId);
 }

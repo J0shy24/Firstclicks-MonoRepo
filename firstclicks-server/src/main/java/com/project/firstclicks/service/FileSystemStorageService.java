@@ -2,7 +2,10 @@ package com.project.firstclicks.service;
 
 
 import jakarta.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -26,7 +29,6 @@ public class FileSystemStorageService implements StorageService {
 
     @Value("${storage.location}")
     private String storageLocation;
-
     private Path rootLocation;
 
     @PostConstruct
@@ -76,7 +78,7 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public Resource loadAsResource(String filename) {
-        try {
+    	try {
             Path file = load(filename);
             Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {

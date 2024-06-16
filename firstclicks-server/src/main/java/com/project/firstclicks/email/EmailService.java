@@ -39,7 +39,7 @@ public class EmailService {
 		if(emailTemplate==null) {
 			templateName="comfirm-email";
 		}else {
-			templateName=emailTemplate.name();
+			templateName=emailTemplate.getName();
 		}
 		
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
@@ -56,7 +56,7 @@ public class EmailService {
 		Context context = new Context();
 		context.setVariables(properties);
 		
-		mimeMessageHelper.setFrom("contact@FirstClicks.es");
+		mimeMessageHelper.setFrom("firstclicksproject@gmail.com");
 		mimeMessageHelper.setTo(to);
 		mimeMessageHelper.setSubject(subject);
 		

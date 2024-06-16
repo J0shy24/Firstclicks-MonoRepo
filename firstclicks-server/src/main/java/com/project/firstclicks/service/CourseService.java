@@ -131,11 +131,6 @@ public class CourseService {
 		coursePublicDTO.setStudentStars(studentCourseRepository.avgStudentStars(courseId));
 		coursePublicDTO.setStudentReview(studentCourseRepository.studentReviewList(courseId));
 		
-		coursePublicDTO.setTechStack(techStackRepository.findByCourse(courseFromDb));
-		
-		coursePublicDTO.setStudentStars(studentCourseRepository.avgStudentStars(courseId));
-		coursePublicDTO.setStudentReview(studentCourseRepository.studentReviewList(courseId));
-
 		return coursePublicDTO;
 	}
 

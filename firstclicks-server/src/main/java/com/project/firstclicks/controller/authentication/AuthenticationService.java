@@ -81,6 +81,7 @@ public class AuthenticationService {
 				newTutor.setDateOfBirth(request.getDateOfBirth());
 				newTutor.setGender(request.getGender());
 				newTutor.setAddress(request.getAddress());
+				newTutor.setPhoneNumber(request.getPhoneNumber());
 				newTutor.setDescription(request.getDescription());
 				newTutor.setRoles(List.of(userRole));
 				newTutor.setAccountLocked(false);

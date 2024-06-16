@@ -54,7 +54,10 @@ public class SecurityConfiguration {
 	                     "/webjars/**",
 	                     "/swagger-ui.html",
 	                     "/courses/**",
-	                     "/media/public/**"
+	                     "/media/public/**",
+	                     "/media/**",
+	                     "/static/**",
+	                     "/BOOT-INF/**"
 	                     )
 						.permitAll()
 					.requestMatchers(
