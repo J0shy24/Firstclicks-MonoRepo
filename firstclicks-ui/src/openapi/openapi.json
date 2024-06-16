@@ -3,7 +3,7 @@
   "info": { "title": "OpenAPI definition", "version": "v0" },
   "servers": [
     {
-      "url": "http://52.149.64.37:8088/api/firstclicks",
+      "url": "http://ip_publica:8088/api/firstclicks",
       "description": "Generated server url"
     }
   ],

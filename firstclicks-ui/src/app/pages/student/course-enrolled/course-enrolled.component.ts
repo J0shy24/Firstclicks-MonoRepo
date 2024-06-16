@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CourseService } from '../../../services/course.service';
 import { ApiImgPipe } from '../../../shared/api-img.pipe';
-import { CoursePublicDto } from '../../../../services/models';
+import { CoursePublicDto, StudentCourseDto } from '../../../../services/models';
 import { CourseCardComponent } from '../../home/shared/course-card/course-card.component';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
@@ -48,13 +48,14 @@ export default class CourseEnrolledComponent implements OnInit {
     if (this.courseId) {
       this.studentCourseService
         .getStudentCourseById(parseInt(this.courseId))
-        .subscribe((course) => {
+        .subscribe((course: StudentCourseDto) => {
           this.courseEnrolled = course.courseEnrolled;
         });
     }
   }
 
   save() {
+    console.log(this.form);
     if (this.form!.invalid) {
       return;
     }

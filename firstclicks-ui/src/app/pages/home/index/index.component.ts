@@ -71,7 +71,7 @@ export default class IndexComponent {
       },
       error: (error) => {
         if (error.error.errorCode) {
-          this.errors.push('Error en el email o contraseña');
+          this.errors.push('El usuario o la contraseña son incorrectos.');
         }
       },
     });

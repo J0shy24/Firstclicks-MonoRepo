@@ -16,7 +16,7 @@ FROM amazoncorretto:17
 
 WORKDIR /app
 COPY --from=build /build/target/firstclicks-*.jar /app/
-COPY --from=build /build/mediafiles /app/
+COPY --from=build /build/mediafiles/* /app/mediafiles/
 
 EXPOSE 8088
 

@@ -1,0 +1,12 @@
+Commands
+Build backend image:
+docker build -t j0shy24/firstclicks -f ../docker/backend/Dockerfile .
+
+Build frontend image:
+docker build -t j0shy24/firstclicks-ui -f ../docker/frontend/Dockerfile .
+
+Docker-compose:
+docker-compose up -d 
+
+quyl sirn yfan wqsi 
+

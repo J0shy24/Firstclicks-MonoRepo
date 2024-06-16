@@ -38,6 +38,11 @@ export default class CourseFormComponent implements OnInit {
   courseExists?: CoursePublicDto;
 
   techs: Array<string> = new Array<string>();
+  contador = 0;
+  maxTechStack = true;
+  emptyTechStack = true;
+
+  noChange = true;
 
   createCourse: CourseDto = {
     coverPath: '',
@@ -70,6 +75,7 @@ export default class CourseFormComponent implements OnInit {
               let item: string = element.techStack;
               this.techs.push(item);
             });
+            this.contador = this.techs.length;
           }
         });
     } else {
@@ -99,6 +105,7 @@ export default class CourseFormComponent implements OnInit {
   //Guarda la imagen y hace una vista previa
 
   uploadFile(event: any, control: string) {
+    this.noChange = false;
     const file = event.target.files[0];
 
     if (file) {
@@ -119,9 +126,15 @@ export default class CourseFormComponent implements OnInit {
     }
   }
 
-  contador = 0;
-  maxTechStack = true;
   addTechStack(techInput: HTMLInputElement) {
+    this.emptyTechStack = true;
+    this.maxTechStack = true;
+
+    if (techInput.value == '') {
+      this.emptyTechStack = false;
+      return;
+    }
+
     if (this.contador < 3) {
       this.techs.push(techInput.value);
       techInput.value = '';

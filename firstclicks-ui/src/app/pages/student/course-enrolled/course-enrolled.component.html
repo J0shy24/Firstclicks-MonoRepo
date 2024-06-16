@@ -2,96 +2,16 @@
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer
 ></script>
-<!-- CARD COURSE -->
-<!-- <app-course-card [course]="courseEnrolled" [linkPath]="''"></app-course-card> -->
-<!-- RATING AND REVIEWS -->
-<!-- <form
-  action="POST"
-  [formGroup]="form"
-  (ngSubmit)="save()"
-  class="flex flex-col max-w-64 gap-2"
->
-  <p-rating
-    [stars]="5"
-    [cancel]="false"
-    formControlName="studentStars"
-  ></p-rating>
-  <textarea
-    class="textarea textarea-bordered"
-    placeholder="Bio"
-    formControlName="studentReview"
-  ></textarea>
-  <button class="btn btn-active btn-primary">Enviar</button>
-</form>
-<div class="relative">
-  <div class="bg-white shadow-md rounded-xl">
-    <a class="flex flex-auto">
-      <div>
-        <img
-          [src]="courseEnrolled.tutor?.photoRoute || '' | apiImg"
-          alt="Teacher"
-          class="h-36 m-4 object-cover"
-        />
-      </div>
-      <div class="flex flex-auto flex-col justify-between">
-        <div class="m-4">
-          <span class="text-gray-400 mr-3 uppercase text-xs">TUTOR</span>
-          <p class="text-lg font-bold text-black truncate block capitalize">
-            {{ courseEnrolled.tutor?.firstName }}
-          </p>
-          <p class="text-sm text-black">
-            {{ courseEnrolled.tutor?.description }}
-          </p>
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
--->
-<!-- FOOTER -->
-<!-- <div class="btm-nav">
-  <button routerLink="/student/courses">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-      />
-    </svg>
-  </button>
-  <button class="active">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-5 w-5"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-  </button>
-</div> -->
-
 <!-- CAMBIOS -->
 
 <div class="bg-gray-100 min-h-screen w-full">
   <div class="container mx-auto mb-5 p-5">
     <div class="md:flex no-wrap md:-mx-2">
       <!-- Left Side -->
+
       <div class="w-full md:w-3/12 md:mx-2">
         <!-- PROFILE CARD -->
+
         <div class="bg-white p-3 border-t-4 border-color">
           <div class="relative">
             <div class="bg-white">
@@ -191,19 +111,19 @@
             class="flex flex-col max-w-64 gap-2"
           >
             <!-- STARS -->
-            <h1>Valoración</h1>
+             <div class="ml-6">
+            <h1 class="mt-4 font-bold mb-1">Valoración</h1>
+            <p class="text-ellipsis-gray-600 mb-2 text-gray-600">Selecciona las estrellas que le quieres dejar a este curso.</p>
 
             <div class="rating">
               <input
                 type="radio"
-                name="rating-2"
                 class="mask mask-star-2 bg-orange-400"
                 value="1"
                 formControlName="studentStars"
               />
               <input
                 type="radio"
-                name="rating-2"
                 class="mask mask-star-2 bg-orange-400"
                 checked
                 value="2"
@@ -211,21 +131,18 @@
               />
               <input
                 type="radio"
-                name="rating-2"
                 class="mask mask-star-2 bg-orange-400"
                 value="3"
                 formControlName="studentStars"
               />
               <input
                 type="radio"
-                name="rating-2"
                 class="mask mask-star-2 bg-orange-400"
                 value="4"
                 formControlName="studentStars"
               />
               <input
                 type="radio"
-                name="rating-2"
                 class="mask mask-star-2 bg-orange-400"
                 value="5"
                 formControlName="studentStars"
@@ -233,13 +150,14 @@
             </div>
 
             <!-- TEXTAREA -->
-            <h1>Reseña</h1>
+            <h1 class="mt-4 font-bold mb-2">Reseña</h1>
             <textarea
               class="textarea textarea-bordered"
               placeholder="Cuéntanos cómo te ha ido o una breve descripción del curso para enriquecer las opiniones sobre este curso."
               formControlName="studentReview"
             ></textarea>
-            <button class="btn btn-active btn-primary">Enviar</button>
+            <button class="btn signup border-none text-white rounded-full px-5">Enviar</button>
+          </div>
           </form>
         </div>
       </div>
@@ -248,7 +166,7 @@
 </div>
 
 <!--FOOTER-->
-<div class="btm-nav">
+<div class="btm-nav sticky">
   <button routerLink="/student/courses">
     <svg
       xmlns="http://www.w3.org/2000/svg"
